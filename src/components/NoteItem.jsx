@@ -11,8 +11,9 @@ const NoteItem = (props) => {
                         {props.note.description}
                     </p>
                     <p style={{ textAlign: 'right' }}>
-                        <i onClick={() => { props.deletNote(props.note._id) }} style={{ cursor: 'pointer' }} className="fas fa-trash mx-2"></i>
-                        <i onClick={() => { props.launchModal(props.note._id, props.note.title, props.note.description) }} style={{ cursor: 'pointer' }} className="far fa-edit mx-2"></i>
+                        <i onClick={() => {props.launchDeletModal(props.note._id,props.note.title, props.note.description) }} style={{ cursor: 'pointer' }} className="fas fa-trash mx-2"></i>
+
+                        <i onClick={() => { props.launchUpdtModal(props.note._id, props.note.title, props.note.description) }} style={{ cursor: 'pointer' }} className="far fa-edit mx-2"></i>
                     </p>
                 </div>
             </div>

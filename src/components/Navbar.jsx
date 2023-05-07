@@ -16,7 +16,6 @@ const Navbar = () => {
             }
         });
         const response = await logOutUser.json();
-        console.log(response);
         if (response.success && response.msg === "logedOut") {
             //user loged out successfully
             // logOut locally on local storage
@@ -27,6 +26,7 @@ const Navbar = () => {
             navigate('/');
         }else{
             console.log(response);
+            navigate('/');
         }
     }
     return (

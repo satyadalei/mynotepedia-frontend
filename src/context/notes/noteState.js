@@ -1,8 +1,12 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, useContext} from "react";
 import NoteContext from "./noteContext";
 import { useNavigate } from 'react-router-dom';
+import LoginContext from "../loginstatus/loginContext";
+
 const NoteState = (props) => {
    // fetchAllNotes();
+   const loginContext = useContext(LoginContext);
+   const {logedInStatus} = loginContext;
    const navigate = useNavigate();
    const host = "http://localhost:7000";
    const [allNotes, setAllNotes] = useState([]);
@@ -26,8 +30,10 @@ const NoteState = (props) => {
       }
    }
    useEffect(() => {
-    fetchAllNotes();
-   }, []);
+      if (logedInStatus) {
+         fetchAllNotes();  
+      }
+   }, [logedInStatus]);
 
    // add a note
    const addNote = async(note)=>{
@@ -63,7 +69,6 @@ const NoteState = (props) => {
          }
       })
        const response = await deleteANote.json();
-       console.log(response);
       if (response.msg === "note deleted successfully") {
          //note deleted successfully
          fetchAllNotes()
