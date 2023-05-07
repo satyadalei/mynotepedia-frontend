@@ -1,7 +1,11 @@
 import React, { useContext, useState } from 'react'
 import UserContext from '../context/user/userContext'
 import { useNavigate } from 'react-router-dom';
+import LoginContext from '../context/loginstatus/loginContext';
+
 const Register = () => {
+  const loginContext = useContext(LoginContext);
+  const {setLogedInStatus} = loginContext;
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     name: "",
@@ -19,7 +23,8 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password } = credentials;
     if (credentials.password === credentials.cpassword) {
-      const url = 'http://localhost:7000/api/auth/createuser';
+      const host = process.env.REACT_APP_HOST_URL;
+      const url = `${host}/api/auth/createuser`;
       const creatUser = await fetch(url, {
         method: "POST",
         credentials: 'include',
@@ -31,6 +36,8 @@ const Register = () => {
       if (response.msg === 'userCreated' && response.success === true) {
         //set local storage status loged in
         localStorage.setItem("logInStatus", true);
+        //set loginStatus true in app
+        setLogedInStatus(true)
         // make all registration field to normal
         setCredentials({ name: "", email: "", cpassword: "", password: "" });
         //fetch user 

@@ -18,7 +18,8 @@ const Login = () => {
     }
     const handleSubmit = async(e)=>{
         e.preventDefault();
-       const url = 'http://localhost:7000/api/auth/login';
+        const host = process.env.REACT_APP_HOST_URL;
+       const url = `${host}/api/auth/login`;
        const loginUser = await fetch(url,{
             method:"POST",
             credentials: 'include',

@@ -6,8 +6,9 @@ const Navbar = () => {
     let location = useLocation();
     const loginContext = useContext(LoginContext);
     const { logedInStatus,setLogedInStatus } = loginContext;
+    const host = process.env.REACT_APP_HOST_URL;
     const handleLogOut = async () => {
-        const url = 'http://localhost:7000/api/auth/logout'
+        const url = `${host}/api/auth/logout`;
         const logOutUser = await fetch(url, {
             method: "GET",
             credentials: 'include',
