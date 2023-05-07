@@ -3,9 +3,11 @@ import userContext from "./userContext";
 
 
 const UserState = (props) => {
+  //gets_api_url from .env file
+  const host = process.env.REACT_APP_HOST_URL;
   const [user, setUser] = useState(null);
   const fetchUser = async () => {
-    const url = "http://localhost:7000/api/auth/getuser";
+    const url = `${host}/api/auth/getuser`;
     const fetchUser = await fetch(url, {
       method: "GET",
       credentials: 'include',

@@ -8,7 +8,8 @@ const NoteState = (props) => {
    const loginContext = useContext(LoginContext);
    const {logedInStatus} = loginContext;
    const navigate = useNavigate();
-   const host = "http://localhost:7000";
+   //gets_api_url from .env file
+   const host = process.env.REACT_APP_HOST_URL;
    const [allNotes, setAllNotes] = useState([]);
    const fetchAllNotes = async () => {
       const url = `${host}/api/notes/fetchallnotes`;
@@ -33,6 +34,7 @@ const NoteState = (props) => {
       if (logedInStatus) {
          fetchAllNotes();  
       }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [logedInStatus]);
 
    // add a note
@@ -59,7 +61,6 @@ const NoteState = (props) => {
    }
    //delete a note
    const deletNote = async(noteId)=>{
-      console.log(noteId);
       const url = `${host}/api/notes/deletenote/${noteId}`;
       const deleteANote = await fetch(url,{
          method: "DELETE",
